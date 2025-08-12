@@ -1,10 +1,9 @@
 import { Routes } from "@angular/router";
-import { Home } from "./home";
-import { Profile } from "../profile/profile";
+import { Function1 } from "./function1";
 
 export default [
     {
         path: '',
-        component: Home,
+        component: Function1,
     },
 ] as Routes;

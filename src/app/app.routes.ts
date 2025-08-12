@@ -10,7 +10,18 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path:'home',
+    component:Home,
+    // loadChildren: () => import('./feature/home/home.route').then(c => c.home),
+    children:[
+      {
+        path:'function1',
+        loadChildren: () => import('./shared/components/function1/function1.route').then(c=>c.default)
 
+      }
+    ]
+  },
   {
     path: 'auth',
     canActivate: [guestGuard],
@@ -70,8 +81,8 @@ export const routes: Routes = [
       },
     ],
   },
-  {
-    path: '**',
-    redirectTo: 'home',
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'home',
+  // },
 ];
