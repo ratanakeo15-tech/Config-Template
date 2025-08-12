@@ -8,4 +8,11 @@ sudo chown -R $(whoami) /Users/vattanacbank/Documents/VB_PROJECTS/angular-web-te
 //allow permistion command
  sudo chmod 777 angular_template 
   sudo chmod -R 777 angular_template
-  //
+  
+  //codiong note
+
+  /*LogIn handle*/
+  If we want to link to another page after login we need to declare
+  // redirectUrl: string | null = null; // use to get which url are you stand for
+  Customize your auth.guestGuard
+  we need to attempt url in another place first 

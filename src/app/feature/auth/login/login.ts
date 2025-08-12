@@ -50,7 +50,8 @@ export class Login {
       this.authService.login({ email: email!, password: password! }).subscribe({
         next: (result) => {
           if (result.success) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigateByUrl(this.authService.redirectUrl || '/dashboard');
+        this.authService.redirectUrl = null;
           } else {
             this.error.set(result.error || 'Login failed');
           }

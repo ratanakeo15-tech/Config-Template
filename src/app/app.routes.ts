@@ -9,7 +9,6 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-    
   },
 
   {
@@ -39,34 +38,38 @@ export const routes: Routes = [
           ),
         title: 'Register',
       },
-      // {
-      //   path: 'profile',
-      //   loadChildren: () =>
-      //     import('./feature/profile/profile.route').then(
-      //       (m) => m.default
-      //     ),
-      //   title: 'Register',
-      // },
     ],
   },
 
   {
-    path: 'home',
-    //loadChildren: () =>
-      // import('./feature/home/home.route').then((m) => m.default),
-    component: Home,
+    path: '',
+    loadChildren: () =>
+      import('./feature/home/home.route').then((m) => m.default),
+  },
 
+  {
+    path: '',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./shared/layout/main-layout/main-layout').then(
+        (c) => c.MainLayout
+      ),
     children: [
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./feature/dashboard/dashboard.route').then((m) => m.default),
+        title: 'Dashboard',
+      },
       {
         path: 'profile',
         loadChildren: () =>
           import('./feature/profile/profile.route').then((m) => m.default),
-        component: Profile,
+
         title: 'Profile',
       },
     ],
   },
-
   {
     path: '**',
     redirectTo: 'home',

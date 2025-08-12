@@ -31,7 +31,7 @@ import { Home } from '../home/home.js';
   styleUrl: './profile.css'
 })
 export class Profile {
-  homepage=inject(Home);
+  
    protected readonly authService = inject(AuthService);
   private readonly fb = inject(FormBuilder);
   private readonly snackBar = inject(MatSnackBar);
@@ -129,5 +129,8 @@ export class Profile {
       
       reader.readAsDataURL(file);
     }
+  }
+   protected logout(): void {
+    this.authService.logout();
   }
 }

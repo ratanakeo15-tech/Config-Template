@@ -10,6 +10,7 @@ import { LoginCredentials } from "../models/login-credentials.js";
     providedIn:'root'
 })
 export class AuthService {
+    redirectUrl: string | null = null;
     private readonly router = inject(Router);
     private readonly envService = inject(EnvironmentService);
     private readonly currentUser = signal<User | null>(null);
