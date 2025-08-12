@@ -1,0 +1,11 @@
+rm -rf src/app/my-component using for remove folder
+ng g c my-folder/dummy using for create template 
+mkdir src/app/core   using for create default folder 
+touch src/app/models/user.model.ts is using for create ts file
+//if your computer always ask for permistion use this
+sudo chown -R $(whoami) /Users/vattanacbank/Documents/VB_PROJECTS/angular-web-testing
+//create folder and many file together
+//allow permistion command
+ sudo chmod 777 angular_template 
+  sudo chmod -R 777 angular_template
+  //
