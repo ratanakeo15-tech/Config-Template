@@ -51,7 +51,7 @@
               matSuffix
               type="button"
               (click)="togglePasswordVisibility()"
-              class="text-gray-400 hover:text-gray-600 transition-colors"
+              class="text-gray-400 hover:text-gray-600 transition-colors bg-indigo-500"
             >
               <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
@@ -89,10 +89,10 @@
         <!-- Submit Button -->
         <button
           mat-raised-button
-          color="primary"
+          
           type="submit"
           [disabled]="loginForm.invalid || authService.loading()"
-          class="w-full py-4 text-base font-semibold rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transform transition-all duration-200 hover:scale-[1.02] shadow-lg hover:shadow-xl"
+          class="w-full py-4 text-base font-semibold rounded-xl bg-blue-500  hover:from-blue-700 hover:to-indigo-700 transform transition-all duration-200 hover:scale-[1.02] shadow-lg hover:shadow-xl !bg-blue-500"
         >
           @if (authService.loading()) {
             <div class="loading-content">
@@ -100,9 +100,9 @@
               <span>Signing you in...</span>
             </div>
           } @else {
-            <div class="flex items-center justify-center text-white">
+            <div class="flex items-center justify-center text-white ">
               <mat-icon class="mr-2">login</mat-icon>
-              <span class="text-white">Sign In</span>
+              <span class="text-white ">Sign In</span>
             </div>
           }
         </button>
