@@ -3,6 +3,7 @@ import { authGuard, guestGuard } from './core/guards/auth.guard';
 import { Login } from './feature/auth/login/login';
 import { Home } from './feature/home/home';
 import { Profile } from './feature/profile/profile';
+import { Function3 } from './shared/components/function3/function3';
 
 export const routes: Routes = [
   {
@@ -11,16 +12,39 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path:'home',
-    component:Home,
+    path: 'home',
+    component: Home,
     // loadChildren: () => import('./feature/home/home.route').then(c => c.home),
-    children:[
+    children: [
       {
-        path:'function1',
-        loadChildren: () => import('./shared/components/function1/function1.route').then(c=>c.default)
-
-      }
-    ]
+        path: 'showcaseBoard',
+        loadChildren: () =>
+          import('./shared/components/showcase-card/showCase.route').then(
+            (c) => c.default
+          ),
+      },
+      {
+        path: 'function1',
+        loadChildren: () =>
+          import('./shared/components/function1/function1.route').then(
+            (c) => c.default
+          ),
+      },
+      {
+        path: 'function2',
+        loadChildren: () =>
+          import('./shared/components/function2/function2.route').then(
+            (c) => c.default
+          ),
+      },
+      {
+        path: 'function3',
+        loadChildren: () =>
+          import('./shared/components/function3/function3.route').then(
+            (c) => c.default
+          ),
+      },
+    ],
   },
   {
     path: 'auth',
@@ -81,8 +105,20 @@ export const routes: Routes = [
       },
     ],
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'home',
-  // },
+  {
+    path:'check',
+    loadChildren:()=>import('./shared/components/check/check.route').then(m=>m.default),
+  },
+  {
+    path:'products',
+    loadChildren:()=>import('./feature/product-page/product.route').then(m=>m.default)
+  },
+    {
+    path:'product/:id',
+    loadChildren:()=>import('./feature/product-page/product.route').then(m=>m.default)
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+  },
 ];

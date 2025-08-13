@@ -16,3 +16,15 @@ sudo chown -R $(whoami) /Users/vattanacbank/Documents/VB_PROJECTS/angular-web-te
   // redirectUrl: string | null = null; // use to get which url are you stand for
   Customize your auth.guestGuard
   we need to attempt url in another place first 
+
+   // we can't use pointer or navigate to any page because we set pointer-none 
+    and if we stuck in poroblem can't responsive pleae check your code that have you hidden youj component in mobile screen or not
+    // when you select the same photo multiple times, the preview might not update because the file input doesn’t detect a change if the file selection is identical to the previous one.
+
+    //How to fetch product
+    =>we neeed to have httpresourse to handle your http resource
+    =>product model
+    =>product service
+    =>product feature
+
+    //If you wanna show All prduct text only in single product we should check on the url because it depand on id if it have id it will show all product but if no id it will show the text All product 

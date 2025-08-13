@@ -1,0 +1,129 @@
+<div
+  class="min-h-screen flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8"
+>
+  <div class="w-full max-w-6xl bg-white rounded-lg shadow-xl p-8 md:p-10">
+    <h2 class="text-3xl font-bold text-center mt-12 sm:text-5xl header-title">
+      Why Choose Vatanac Bank?
+    </h2>
+    <p class="max-w-3xl mx-auto mt-4 text-xl text-center sub-title">
+      See how Lueora stands out from other brands.
+    </p>
+
+    <div class="mt-24 container space-y-12">
+      <div
+        class="relative p-8 border border-gray-200 rounded-2xl shadow-lg bg-white"
+      >
+        <table class="w-full text-left border-collapse comparison-table">
+          <thead>
+            <tr>
+              <th class="py-4 px-6 font-semibold text-lg">Feature</th>
+              <th class="py-4 px-6 font-semibold text-lg text-center">
+                Lueora
+              </th>
+              <th class="py-4 px-6 font-semibold text-lg text-center">
+                Other Brands
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b">
+              <td class="py-4 px-6">High Quality</td>
+              <td class="py-4 px-6 text-center check">✅</td>
+              <td class="py-4 px-6 text-center cross">❌</td>
+            </tr>
+            <tr class="border-b">
+              <td class="py-4 px-6">Health & Comfort Focused</td>
+              <td class="py-4 px-6 text-center check">✅</td>
+              <td class="py-4 px-6 text-center cross">❌</td>
+            </tr>
+            <tr class="border-b">
+              <td class="py-4 px-6">Fast & Free Shipping</td>
+              <td class="py-4 px-6 text-center check">✅</td>
+              <td class="py-4 px-6 text-center cross">❌</td>
+            </tr>
+            <tr class="border-b">
+              <td class="py-4 px-6">Hassle-Free Refunds</td>
+              <td class="py-4 px-6 text-center check">✅</td>
+              <td class="py-4 px-6 text-center cross">❌</td>
+            </tr>
+            <tr class="border-b">
+              <td class="py-4 px-6">Quick Email Support</td>
+              <td class="py-4 px-6 text-center check">✅</td>
+              <td class="py-4 px-6 text-center cross">❌</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-6">Innovative Home Solutions</td>
+              <td class="py-4 px-6 text-center check">✅</td>
+              <td class="py-4 px-6 text-center cross">❌</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<h1 class="font-bold text-[48px] text-center">your photo here</h1>
+
+<div
+  class="flex-1 items-center max-w-[80%] mx-auto mb-3 space-y-4 sm:flex sm:space-y-0 mt-[50px]"
+>
+  <div class="relative w-full">
+    <div class="items-center justify-center mx-auto">
+      <label
+        class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none"
+        id="drop"
+        ><span class="flex items-center space-x-2"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6 text-gray-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+            ></path>
+            </svg><span class="font-medium text-gray-600"
+            >Drop files to Attach, or<span
+              class="text-blue-600 underline ml-[4px]"
+              >browse</span
+            ></span
+          ></span
+        ><input
+          type="file"
+          name="file_upload"
+          class="hidden"
+          accept="image/png,image/jpeg"
+          id="input"
+          (change)="onFileSelected($event)"
+          multiple
+      /></label>
+    </div>
+  </div>
+</div>
+<div class="w-[80%] m-auto">
+    @if(imagePreviews.length > 0){ @for (img of imagePreviews;track $index) {
+    <div
+    (click)="selectImage($index)"
+    class="relative cursor-pointer rounded-md"
+    [class.border-4]="selectedImageIndex === $index"
+    [class.border-blue-500]="selectedImageIndex === $index"
+    >
+    <img [src]="img" alt="Image Preview" class="max-h-48 rounded-md" />
+    </div>
+
+    }
+    <button
+    (click)="deleteSelectedImage()"
+    [disabled]="imagePreviews.length > 1 && selectedImageIndex !== 0 "
+    class="bg-red-600 text-white rounded-full py-2 px-5 text-xs mt-4 cursor-pointer"
+    >
+    Delete Selected Image
+    </button> 
+    }
+</div>
+
+

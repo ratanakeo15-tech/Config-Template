@@ -1,5 +1,5 @@
-import { Component, Injectable } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, Injectable } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 @Injectable({
   providedIn:'root'
 })
@@ -10,5 +10,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navigation-page.css'
 })
 export class NavigationPage {
-
+   currentPage = 5;       
+  totalPages = 10;
+   nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
 }
