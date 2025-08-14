@@ -92,6 +92,7 @@ export class Profile {
   }
 
   protected resetForm(): void {
+    
     const user = this.authService.user();
     if (user) {
       this.profileForm.patchValue({
