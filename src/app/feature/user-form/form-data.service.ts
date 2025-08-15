@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FormDataService {
-  private formDataSource = new BehaviorSubject<any>(null);
-  formData$ = this.formDataSource.asObservable();
-
-  submitFormData(data: any) {
-    this.formDataSource.next(data);
-  }
+  name = signal('');
+  email = signal('');
+  phoneNumber = signal('');
+  date = signal('');
+  time = signal('');
+  kind = signal('');
+  color = signal('');
+  animal = signal('');
+  message=signal('');
 }

@@ -1,12 +1,12 @@
 
-<!-- source: https://gist.github.com/nraloux/bce10c4148380061781b928cdab9b193 -->
-<!-- I have added support for dark mode and improved UI -->
-...
+<!-- ...
 <h2>Profile Form</h2>
 <p>Name: {{ profileForm.value.name }}</p>
 <p>Email: {{ profileForm.value.email }}</p>
+<p>Name: {{ animals.value.bird}}</p>
+<p>Email: {{ profileForm.value.email }}</p> -->
 
-<div class="h-full bg-gray-400 dark:bg-gray-900"> 
+<div class="bg-white/30 backdrop-blur-none">
   <!-- Container -->
   <div class="mx-auto">
     <div class="flex justify-center px-6 py-12">
@@ -29,13 +29,12 @@
           <form
             class="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded"
             [formGroup]="profileForm"
-            
+            (ngSubmit)="onSubmit()"
           >
-            <div class="mb-4 ">
+            <div class="mb-4">
               <label
                 class="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
-               for="name"
-                
+                for="name"
               >
                 Full Name
               </label>
@@ -61,8 +60,200 @@
                 placeholder="Email"
                 formControlName="email"
               />
-            </div>
-            <div class="mb-4 md:flex md:justify-between">
+              <div class="mb-4">
+                <label
+                  class="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
+                  for="Phone Number"
+                >
+                  Phone Number
+                </label>
+                <input
+                  class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  type="number"
+                  placeholder="0989723782"
+                  formControlName="phoneNumber"
+                />
+              </div>
+              <div class="-mx-3 flex flex-wrap">
+                <div class="w-full px-3 sm:w-1/2">
+                  <div class="mb-5">
+                    <label
+                      for="date"
+                      class="mb-3 block text-base font-medium text-[#07074D]"
+                    >
+                      Date
+                    </label>
+                    <input
+                    formControlName="date"
+                      type="date"
+                      name="date"
+                      id="date"
+                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    />
+                  </div>
+                </div>
+                <div class="w-full px-3 sm:w-1/2">
+                  <div class="mb-5">
+                    <label
+                      for="time"
+                      class="mb-3 block text-base font-medium text-[#07074D]"
+                    >
+                      Time
+                    </label>
+                    <input
+                    formControlName="time"
+                      type="time"
+                      name="time"
+                      id="time"
+                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- select data -->
+              <div class="mb-4">
+                <label for="gender" class="block text-gray-700 font-medium mb-2"
+                  >Gender</label
+                >
+                <select
+                formControlName="kind"
+                  id="gender"
+                  name="gender"
+                  class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
+                  required
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <!-- Radio butoon -->
+              <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-2"
+                  >What is your favorite color?</label
+                >
+                <div class="flex flex-wrap -mx-2">
+                  <div class="px-2 w-1/3">
+                    <label
+                      for="color-red"
+                      class="block text-gray-700 font-medium mb-2"
+                    >
+                      <input
+                        type="radio"
+                        id="color-red"
+                        name="color"
+                        value="red"
+                        class="mr-2"
+                        formControlName="color"
+                      />Red
+                    </label>
+                  </div>
+                  <div class="px-2 w-1/3">
+                    <label
+                      for="color-blue"
+                      class="block text-gray-700 font-medium mb-2"
+                    >
+                      <input
+                        type="radio"
+                        id="color-blue"
+                        name="color"
+                        value="blue"
+                        class="mr-2"
+                        formControlName="color"
+                      />Blue
+                    </label>
+                  </div>
+                  <div class="px-2 w-1/3">
+                    <label
+                      for="color-green"
+                      class="block text-gray-700 font-medium mb-2"
+                    >
+                      <input
+                        type="radio"
+                        id="color-green"
+                        name="color"
+                        value="green"
+                        class="mr-2"
+                        formControlName="color"
+                      />Green
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- check button -->
+               <form [formGroup]="animals" >
+              <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-2"
+                  >What is your favorite animal?</label
+                >
+                <div class="flex flex-wrap -mx-2">
+                 
+                  <div class="px-2 w-1/3">
+                    
+                    <label
+                      for="animal-cat"
+                      class="block text-gray-700 font-medium mb-2"
+                    >
+                      <input
+                        type="checkbox"
+                        id="animal-cat"
+                        name="animal[]"
+                        value="cat"
+                        class="mr-2"
+                         formControlName="bird"
+                      />Cat
+                    </label>
+                  </div>
+                  <div class="px-2 w-1/3">
+                    <label
+                      for="animal-dog"
+                      class="block text-gray-700 font-medium mb-2"
+                    >
+                      <input
+                        type="checkbox"
+                        name="animal[]"
+                        value="dog"
+                        class="mr-2"
+                        formControlName="cat"
+                      />Dog
+                    </label>
+                  </div>
+                  <div class="px-2 w-1/3">
+                    <label
+                      for="animal-bird"
+                      class="block text-gray-700 font-medium mb-2"
+                    >
+                      <input
+                        type="checkbox"
+                        id="animal-bird"
+                        name="animal[]"
+                        value="bird"
+                        class="mr-2"
+                         formControlName="bird"
+                      />Bird
+                    </label>
+                  </div>
+                </div>
+                
+              </div>
+              </form>
+              <div class="mb-4">
+                <label
+                  for="message"
+                  class="block text-gray-700 font-medium mb-2"
+                  >Message</label
+                >
+                <textarea
+                  formControlName="message"
+                  id="message"
+                  name="message"
+                  class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
+                  rows="5"
+                ></textarea>
+              </div>
+              <div></div>
+              <!-- <div class="mb-4 md:flex md:justify-between">
               <div class="mb-4 md:mr-2 md:mb-0">
                 <label
                   class="block mb-2 text-sm font-bold text-gray-700 dark:text-white"
@@ -94,32 +285,32 @@
                   placeholder="******************"
                 />
               </div>
-            </div>
-            <div class="mb-6 text-center">
-              <button
-              [routerLink]="['/user']"
-                class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline"
-                type="submit"
-              >
-                Submit
-              </button>
-            </div>
-            <hr class="mb-6 border-t" />
-            <div class="text-center">
-              <a
-                class="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
-                href="#"
-              >
-                Forgot Password?
-              </a>
-            </div>
-            <div class="text-center">
-              <a
-                class="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
-                href="./index.html"
-              >
-                Already have an account? Login!
-              </a>
+            </div> -->
+              <div class="mb-6 text-center">
+                <button
+                  class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-900 focus:outline-none focus:shadow-outline"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
+              <hr class="mb-6 border-t" />
+              <div class="text-center">
+                <a
+                  class="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
+                  href="#"
+                >
+                  Forgot Password?
+                </a>
+              </div>
+              <div class="text-center">
+                <a
+                  class="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
+                  href="./index.html"
+                >
+                  Already have an account? Login!
+                </a>
+              </div>
             </div>
           </form>
         </div>
@@ -127,6 +318,3 @@
     </div>
   </div>
 </div>
-
-
-
