@@ -28,3 +28,6 @@ sudo chown -R $(whoami) /Users/vattanacbank/Documents/VB_PROJECTS/angular-web-te
     =>product feature
 
     //If you wanna show All prduct text only in single product we should check on the url because it depand on id if it have id it will show all product but if no id it will show the text All product 
+
+    //using private because
+    prevents other classes from changing it

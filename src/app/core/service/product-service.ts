@@ -8,9 +8,10 @@ import { Observable } from "rxjs";
 export class ProductService {
     
 private baseUrl = 'https://fakestoreapi.com/products';
-
+  // This uses Angular Dependency Injection to give your service a reusable HTTP helper called HttpResource.
   constructor(private resource: HttpResource<Products>) {}
-
+//  Doesn’t run until you subscribe.
+// Once data comes back, your callback runs.
   getProducts(): Observable<Products[]> {
     return this.resource.getAll(this.baseUrl);
   }
