@@ -44,6 +44,7 @@ export const routes: Routes = [
             (c) => c.default
           ),
       },
+
     ],
   },
   {
@@ -116,6 +117,14 @@ export const routes: Routes = [
     {
     path:'product/:id',
     loadChildren:()=>import('./feature/product-page/product.route').then(m=>m.default)
+  },
+   {
+    path:'userForm',
+    loadChildren:()=>import('./feature/user-form/userForm.route').then(m=>m.default)
+  },
+  {
+    path:'user',
+    loadChildren:()=>import('./feature/user-information/userInfo.route').then(m=>m.default)
   },
   {
     path: '**',

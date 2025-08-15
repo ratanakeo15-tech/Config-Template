@@ -28,6 +28,15 @@ sudo chown -R $(whoami) /Users/vattanacbank/Documents/VB_PROJECTS/angular-web-te
     =>product feature
 
     //If you wanna show All prduct text only in single product we should check on the url because it depand on id if it have id it will show all product but if no id it will show the text All product 
+<<<<<<< HEAD
 
     //using private because
     prevents other classes from changing it
+=======
+    localStorage is part of the browser’s Web Storage API.
+
+It cannot store objects, arrays, numbers, or booleans directly — only strings.
+
+//we can get data into input form
+[(ngModel)]=" " if it not work please use [ngOptions] to work with and if your form got stuck in a problem just go and check reactive form 
+>>>>>>> a0ba01870b1195548bc9c140ec346822b0fa8d27

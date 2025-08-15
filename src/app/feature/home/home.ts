@@ -7,7 +7,7 @@ import { NavigationPage } from '../../shared/components/navigation-page/navigati
 
 @Component({
   selector: 'app-home',
-  imports: [RouterOutlet, NavigationPage],
+  imports: [RouterOutlet, NavigationPage,RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
