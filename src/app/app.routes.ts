@@ -4,6 +4,7 @@ import { Login } from './feature/auth/login/login';
 import { Home } from './feature/home/home';
 import { Profile } from './feature/profile/profile';
 import { Function3 } from './shared/components/function3/function3';
+import { ProductPage } from './feature/product-page/product-page';
 
 export const routes: Routes = [
   {
@@ -113,6 +114,7 @@ export const routes: Routes = [
   {
     path:'products',
     loadChildren:()=>import('./feature/product-page/product.route').then(m=>m.default)
+    
   },
     {
     path:'product/:id',

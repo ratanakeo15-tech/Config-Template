@@ -1,19 +1,29 @@
-
+<!-- Searchbar -->
+<div class="w-[80%] mt-5 m-auto">
+  <mat-form-field class="w-full">
+    <input matInput type="search" 
+    [(ngModel)]="textQuery" 
+    (ngModelChange)="onSearch($event)" >
+    <button matSuffix mat-icon-button aria-label="Search" >
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 
 <h1 class="text-[48px] text-center m-15">🛒 Fake Store Products</h1>
-    
-    @if(id() !== ''){
-        <div class="w-[80%] m-auto">
-            <h1 [routerLink]="['/products']" class="text-[30px] font-bold m-5 cursor-pointer">/All Product</h1>
-        </div>
-    }
 
-    
-@if (products().length > 0) {
+@if(id() !== ''){
+<div class="w-[80%] m-auto">
+  <h1
+    [routerLink]="['/products']"
+    class="text-[30px] font-bold m-5 cursor-pointer"
+  >
+    /All Product
+  </h1>
+</div>
+} @if (products().length > 0) {
 
-<ul
-  class="w-[80%] m-auto grid grid-cols-4 gap-4 cursor-pointer"
->
+<ul class="w-[80%] m-auto grid grid-cols-4 gap-4 cursor-pointer">
   @for (product of products(); track product.id) {
 
   <li class="" [routerLink]="['/product', product.id]">

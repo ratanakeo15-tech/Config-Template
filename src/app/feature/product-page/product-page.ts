@@ -1,19 +1,26 @@
-import { ChangeDetectionStrategy, Component, signal,OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal,OnInit, inject, computed, model } from '@angular/core';
 import { Products } from '../../core/models/products';
 import { ActivatedRoute, RouterLink,NavigationEnd } from '@angular/router';
 import { ProductService } from '../../core/service/product-service';
-import { filter } from 'rxjs/operators';
+import { filter, single } from 'rxjs/operators';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-product-page',
-  imports: [RouterLink],
+  imports:[RouterLink,MatFormFieldModule,MatInputModule,MatIconModule,FormsModule],
   templateUrl: './product-page.html',
   styleUrl: './product-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductPage implements OnInit {
- 
-    showAllProductHeader = false;
-  protected products = signal<Products[]>([]);
+export class ProductPage implements OnInit {    
+  textQuery = '' 
+  list = ProductService;
+  showAllProductHeader = false;
+  protected allProducts = signal<Products[]>([]);
+  protected products = signal<Products[]>(this.allProducts());
   id=signal('');
   constructor(
     private route: ActivatedRoute,
@@ -55,17 +62,33 @@ export class ProductPage implements OnInit {
         //if you have problem in display data please go to check your product that it's under array or not
         this.productService.getProduct(+this.id()).subscribe((product) => {
           //this.products=this.products;
-          this.products.set([product]);
+          this.allProducts.set([product]);
         });
       } else {
         // Fetch all products
         this.productService.getProducts().subscribe((products) => {
-          this.products.set(products);
+          this.allProducts.set(products);
+          this.products.set(this.allProducts());
         });
       }
     }
     
   );
   }
+
+  protected onSearch(value: any): void {
+    console.log('value:', value);
+    this.products.set(
+      this.allProducts().filter(x => 
+        x.title.toLowerCase().includes(value.toLowerCase())
+      )
+    )
+   
+  }
+
+
+
+
+   
  
 }
