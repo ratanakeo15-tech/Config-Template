@@ -2,8 +2,9 @@
 <div class="w-[80%] mt-5 m-auto">
   <mat-form-field class="w-full">
     <input matInput type="search" 
-    [(ngModel)]="textQuery" 
-    (ngModelChange)="onSearch($event)" >
+      [ngModel]="textQuery()" 
+  (ngModelChange)="textQuery.set($event)"
+     >
     <button matSuffix mat-icon-button aria-label="Search" >
       <mat-icon>search</mat-icon>
     </button>
@@ -24,9 +25,9 @@
 } @if (products().length > 0) {
 
 <ul class="w-[80%] m-auto grid grid-cols-4 gap-4 cursor-pointer">
-  @for (product of products(); track product.id) {
+  @for (product of filteredProducts(); track product.id) {
 
-  <li class="" [routerLink]="['/product', product.id]">
+  <li class="" [routerLink]="['/product', product.id]" >
     <img [src]="product.image" [alt]="product.title" width="100" />
     <h2 class="text-[16px] font-bold]">{{ product.category }}</h2>
     <p>{{ truncateText(product.description, 20) }}</p>

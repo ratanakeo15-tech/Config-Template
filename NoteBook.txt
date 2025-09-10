@@ -40,3 +40,6 @@ It cannot store objects, arrays, numbers, or booleans directly — only strings.
 //we can get data into input form
 [(ngModel)]=" " if it not work please use [ngOptions] to work with and if your form got stuck in a problem just go and check reactive form 
 >>>>>>> a0ba01870b1195548bc9c140ec346822b0fa8d27
+[(ngModel)]="email"
+ [ngModelOptions]="{ standalone: true }"
+  ngModel need support by ngModelOptions and you don't need to assign variablr as an signal it's normal

@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Chip } from '../../shared/components/chip/chip';
 
 @Injectable({ providedIn: 'root' })
 export class FormDataService {
@@ -12,4 +13,6 @@ export class FormDataService {
   color = signal('');
   animal = signal('');
   message=signal('');
+  hobbies=inject(Chip);
+  fav=this.hobbies.getKeywords();
 }

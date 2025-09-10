@@ -30,7 +30,8 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductPage implements OnInit {
-  textQuery = '';
+  // textQuery = ''
+  textQuery = signal('');
   list = ProductService;
   showAllProductHeader = false;
   protected allProducts = signal<Products[]>([]);
@@ -76,6 +77,9 @@ export class ProductPage implements OnInit {
         this.productService.getProduct(+this.id()).subscribe((product) => {
           //this.products=this.products;
           this.allProducts.set([product]);
+          // wrap in array so template can iterate
+          this.products.set([product]);
+          // console.log(product);
         });
       } else {
         // Fetch all products
@@ -86,13 +90,29 @@ export class ProductPage implements OnInit {
       }
     });
   }
+// code search by senior
+  // protected onSearch(value: any): void {
+  //   console.log('value:', value);
+  // this.products.set(
+  //   this.allProducts().filter(x =>
+  //     x.title.toLowerCase().includes(value.toLowerCase())
+  //   )
+  // )
+  // }
+  filteredProducts = computed(() => {
+    const query = this.textQuery().toLowerCase().trim();
 
-  protected onSearch(value: any): void {
-    console.log('value:', value);
-    this.products.set(
-      this.allProducts().filter((x) =>
-        x.title.toLowerCase().includes(value.toLowerCase())
-      )
+    if (!query) {
+      return this.products(); // no search → show all
+    }
+
+    return this.products().filter(
+      (product) =>
+        product.title.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query)
     );
-  }
+  });
+
+
 }
