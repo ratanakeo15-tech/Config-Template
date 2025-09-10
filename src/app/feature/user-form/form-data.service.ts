@@ -13,6 +13,6 @@ export class FormDataService {
   color = signal('');
   animal = signal('');
   message=signal('');
-  hobbies=inject(Chip);
-  fav=this.hobbies.getKeywords();
+  // hobbies=inject(Chip);
+  // fav=this.hobbies.getKeywords();
 }

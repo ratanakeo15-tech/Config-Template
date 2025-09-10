@@ -7,14 +7,16 @@ import {
   computed,
   model,
 } from '@angular/core';
-import { Products } from '../../core/models/products';
+
 import { ActivatedRoute, RouterLink, NavigationEnd } from '@angular/router';
-import { ProductService } from '../../core/service/product-service';
+
 import { filter, single } from 'rxjs/operators';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { ProductService } from './service/product-service';
+import { ProductItem } from './model/product-item';
 
 @Component({
   selector: 'app-product-page',
@@ -34,8 +36,8 @@ export class ProductPage implements OnInit {
   textQuery = signal('');
   list = ProductService;
   showAllProductHeader = false;
-  protected allProducts = signal<Products[]>([]);
-  protected products = signal<Products[]>(this.allProducts());
+  protected allProducts = signal<ProductItem[]>([]);
+  protected products = signal<ProductItem[]>(this.allProducts());
   id = signal('');
   constructor(
     private route: ActivatedRoute,
