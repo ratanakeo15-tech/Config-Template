@@ -1,6 +1,14 @@
-import { ChangeDetectionStrategy, Component, signal,OnInit, inject, computed, model } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  OnInit,
+  inject,
+  computed,
+  model,
+} from '@angular/core';
 import { Products } from '../../core/models/products';
-import { ActivatedRoute, RouterLink,NavigationEnd } from '@angular/router';
+import { ActivatedRoute, RouterLink, NavigationEnd } from '@angular/router';
 import { ProductService } from '../../core/service/product-service';
 import { filter, single } from 'rxjs/operators';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
@@ -10,18 +18,24 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-page',
-  imports:[RouterLink,MatFormFieldModule,MatInputModule,MatIconModule,FormsModule],
+  imports: [
+    RouterLink,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+  ],
   templateUrl: './product-page.html',
   styleUrl: './product-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductPage implements OnInit {    
-  textQuery = '' 
+export class ProductPage implements OnInit {
+  textQuery = '';
   list = ProductService;
   showAllProductHeader = false;
   protected allProducts = signal<Products[]>([]);
   protected products = signal<Products[]>(this.allProducts());
-  id=signal('');
+  id = signal('');
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService
@@ -35,25 +49,24 @@ export class ProductPage implements OnInit {
   }
   ngOnInit(): void {
     //this code is for you don't need to check condition with ID
-  //   this.route.params.subscribe(params => {
-  //     const id = params['id'] || '';
-  //     if (id) {
-        
-  //       this.productService.getProduct(+id).subscribe(product => {
-  //         this.products.set([product]); 
-  //       });
-  //     } else {
-        
-  //       this.productService.getProducts().subscribe(products => {
-  //         this.products.set(products);
-         
-         
-  //       });
-  //     }
-  //   });
-  // }
+    //   this.route.params.subscribe(params => {
+    //     const id = params['id'] || '';
+    //     if (id) {
 
-   //this code is for you need to check condition with ID
+    //       this.productService.getProduct(+id).subscribe(product => {
+    //         this.products.set([product]);
+    //       });
+    //     } else {
+
+    //       this.productService.getProducts().subscribe(products => {
+    //         this.products.set(products);
+
+    //       });
+    //     }
+    //   });
+    // }
+
+    //this code is for you need to check condition with ID
     // Subscribe so it reacts if params change
     this.route.params.subscribe((params) => {
       this.id.set(params['id'] || '');
@@ -71,24 +84,15 @@ export class ProductPage implements OnInit {
           this.products.set(this.allProducts());
         });
       }
-    }
-    
-  );
+    });
   }
 
   protected onSearch(value: any): void {
     console.log('value:', value);
     this.products.set(
-      this.allProducts().filter(x => 
+      this.allProducts().filter((x) =>
         x.title.toLowerCase().includes(value.toLowerCase())
       )
-    )
-   
+    );
   }
-
-
-
-
-   
- 
 }
