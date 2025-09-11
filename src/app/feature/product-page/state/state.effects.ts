@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap, mergeMap } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
@@ -6,41 +6,46 @@ import { ProductService } from '../service/product-service';
 import * as ProductActions from './state.actions';
 
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class ProductEffects {
 
-  constructor(
-    private actions$: Actions,
-    private complianceService: ProductService
-  ) {}
+  private  actions$ = inject(Actions);
+  private productService = inject(ProductService);
 
-  loadComplianceItems$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ProductActions.loadproductItems ),
-      // mergeMap(() =>
-      //   this.complianceService.getProducts().pipe(
-      //     map(items =>
-      //       ProductActions.addProductItemSuccess ({ items })
-      //     ),
-      //     catchError(error =>
-      //       of(ProductActions.loadProductItemsFailure ({ error }))
-      //     )
-      //   )
-      // )
+  constructor(  
+  ) {
+     console.log('Actions is', this.actions$); 
+  }
+
+  loadProducts$= createEffect(() =>
+    this.actions$?.pipe(
+      ofType(ProductActions.loadProducts ),
+       mergeMap(() =>
+        this.productService.getProducts().pipe(
+          map((products) =>
+            ProductActions.loadProductsSuccess({ products })
+          ),
+          catchError((error) =>
+            of(ProductActions.loadProductsFailure({ error: error.message }))
+          )
+        )
+      )
     )
   );
 
-  addComplianceItem$ = createEffect(() =>
+   loadProductById$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.addProductItem),
-      // mergeMap(action =>
-      //   this.complianceService.getProduct (action.item).pipe(
-      //     map(item => ComplianceActions.addComplianceItemSuccess({ item })),
-      //     catchError(error =>
-      //       of(ComplianceActions.addComplianceItemFailure({ error }))
-      //     )
-      //   )
-      // )
+      ofType(ProductActions.loadProductById),
+      mergeMap(({ id }) =>
+        this.productService.getProductById(id).pipe(
+          map((product) =>
+            ProductActions.loadProductByIdSuccess({ product })
+          ),
+          catchError((error) =>
+            of(ProductActions.loadProductByIdFailure({ error: error.message }))
+          )
+        )
+      )
     )
   );
 }

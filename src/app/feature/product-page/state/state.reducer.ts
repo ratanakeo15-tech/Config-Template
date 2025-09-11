@@ -1,7 +1,8 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { ProductState } from '../model/product-item';
+
 import * as ProductActions from './state.actions';
+import { ProductState } from './state.model';
 export const statesFeatureKey = 'states';
 
 export interface State extends EntityState<State> {
@@ -10,44 +11,51 @@ export interface State extends EntityState<State> {
 
 export const adapter: EntityAdapter<State> = createEntityAdapter<State>();
 export const initialState: ProductState = {
-  items: [],
+  products: [],
+  selectedProduct: null,
   loading: false,
   error: null,
+  selectedCategory: null,
 };
 export const ProductReducer = createReducer(
   initialState,
 
   // Load
-  on(ProductActions.loadproductItems, state => ({
+    on(ProductActions.loadProducts, (state) => ({
     ...state,
     loading: true,
     error: null,
   })),
-  on(ProductActions.loadProductItemsSucess, (state, { items }) => ({
+  on(ProductActions.loadProductsSuccess, (state, { products }) => ({
     ...state,
-    items,
+    products,
     loading: false,
   })),
-  on(ProductActions.loadProductItemsFailure, (state, { error }) => ({
+  on(ProductActions.loadProductsFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error,
   })),
 
-  // Add
-  on(ProductActions.addProductItem , state => ({
+  // Load single product
+  on(ProductActions.loadProductById, (state) => ({
     ...state,
     loading: true,
+    error: null,
   })),
-  on(ProductActions.addProductItemSuccess , (state, { item }) => ({
+  on(ProductActions.loadProductByIdSuccess, (state, { product }) => ({
     ...state,
-    items: [...state.items, item],
+    selectedProduct: product,
     loading: false,
   })),
-  on(ProductActions.loadProductItemsFailure , (state, { error }) => ({
+  on(ProductActions.loadProductByIdFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error,
+  })),
+   on(ProductActions.setCategory, (state, { category }) => ({
+    ...state,
+    selectedCategory: category,
   }))
 );
 

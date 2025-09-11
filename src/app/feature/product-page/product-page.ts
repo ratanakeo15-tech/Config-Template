@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 
 import { ActivatedRoute, RouterLink, NavigationEnd } from '@angular/router';
-
+import * as ProductActions from './state/state.actions';
 import { filter, single } from 'rxjs/operators';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,104 +17,58 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from './service/product-service';
 import { ProductItem } from './model/product-item';
-
+import * as ProductSelectors from './state/state.selectors';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-product-page',
   imports: [
-    RouterLink,
+      MatSelectModule ,
+      MatFormFieldModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     FormsModule,
+    AsyncPipe
   ],
   templateUrl: './product-page.html',
   styleUrl: './product-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductPage implements OnInit {
-  // textQuery = ''
-  textQuery = signal('');
-  list = ProductService;
-  showAllProductHeader = false;
-  protected allProducts = signal<ProductItem[]>([]);
-  protected products = signal<ProductItem[]>(this.allProducts());
-  id = signal('');
-  constructor(
-    private route: ActivatedRoute,
-    private productService: ProductService
-  ) {}
-  //use for cuting your text
-  truncateText(text: string, maxLength: number = 200): string {
-    if (text.length > maxLength) {
-      return text.slice(0, maxLength) + '...';
-    }
-    return text;
-  }
+
+  products$!: Observable<ProductItem[]>;
+  selectedProduct$!: Observable<ProductItem | null>;
+  loading$!: Observable<boolean>;
+    category$!: Observable<string | null>;
+
+
+  constructor(private store: Store) {}
+
   ngOnInit(): void {
-    //this code is for you don't need to check condition with ID
-    //   this.route.params.subscribe(params => {
-    //     const id = params['id'] || '';
-    //     if (id) {
 
-    //       this.productService.getProduct(+id).subscribe(product => {
-    //         this.products.set([product]);
-    //       });
-    //     } else {
+    
 
-    //       this.productService.getProducts().subscribe(products => {
-    //         this.products.set(products);
+    this.products$ = this.store.select(ProductSelectors.selectAllProducts)
+        this.category$ = this.store.select(ProductSelectors.selectSelectedCategory);
+    // // Load all products when page loads
+    this.store.dispatch(ProductActions.loadProducts());
 
-    //       });
-    //     }
-    //   });
-    // }
+    // this.selectedProduct$ = this.store.select(ProductSelectors.selectSelectedProduct);
+    // this.loading$ = this.store.select(ProductSelectors.selectProductLoading);
 
-    //this code is for you need to check condition with ID
-    // Subscribe so it reacts if params change
-    this.route.params.subscribe((params) => {
-      this.id.set(params['id'] || '');
-      if (this.id()) {
-        // Fetch single product
-        //if you have problem in display data please go to check your product that it's under array or not
-        this.productService.getProduct(+this.id()).subscribe((product) => {
-          //this.products=this.products;
-          this.allProducts.set([product]);
-          // wrap in array so template can iterate
-          this.products.set([product]);
-          // console.log(product);
-        });
-      } else {
-        // Fetch all products
-        this.productService.getProducts().subscribe((products) => {
-          this.allProducts.set(products);
-          this.products.set(this.allProducts());
-        });
-      }
-    });
+    
+
+    // // Example: Load single product by id
+    // this.store.dispatch(ProductActions.loadProductById({ id: 1 }));
+
+    // console.log('Store is:', this.store);
   }
-// code search by senior
-  // protected onSearch(value: any): void {
-  //   console.log('value:', value);
-  // this.products.set(
-  //   this.allProducts().filter(x =>
-  //     x.title.toLowerCase().includes(value.toLowerCase())
-  //   )
-  // )
-  // }
-  filteredProducts = computed(() => {
-    const query = this.textQuery().toLowerCase().trim();
-
-    if (!query) {
-      return this.products(); // no search → show all
-    }
-
-    return this.products().filter(
-      (product) =>
-        product.title.toLowerCase().includes(query) ||
-        product.category.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query)
-    );
-  });
-
+   filterByCategory(category: string) {
+    this.store.dispatch(ProductActions.setCategory({ category }));
+  }
+  
 
 }

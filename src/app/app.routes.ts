@@ -116,10 +116,10 @@ export const routes: Routes = [
     loadChildren:()=>import('./feature/product-page/product.route').then(m=>m.default)
     
   },
-    {
-    path:'product/:id',
-    loadChildren:()=>import('./feature/product-page/product.route').then(m=>m.default)
-  },
+  //   {
+  //   path:'product/:id',
+  //   loadChildren:()=>import('./feature/product-page/product.route').then(m=>m.default)
+  // },
    {
     path:'userForm',
     loadChildren:()=>import('./feature/user-form/userForm.route').then(m=>m.default)

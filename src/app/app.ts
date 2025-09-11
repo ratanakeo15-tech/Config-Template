@@ -9,6 +9,7 @@ import { Footer } from './shared/components/footer/footer';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
+
 export class App {
   protected readonly title = signal('angular-web-testing');
   nav=inject(Navbar);

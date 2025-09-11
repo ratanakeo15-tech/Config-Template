@@ -1,26 +1,31 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { ProductItem } from '../model/product-item';
-import { State } from './state.model';
-export const loadproductItems = createAction('[Compliance] Load Items');
-export const loadProductItemsSucess = createAction(
-  ' Load Items Success',
-  props<{ items: ProductItem[] }>()
+
+export const loadProducts = createAction('[Product] Load Products');
+export const loadProductsSuccess = createAction(
+  '[Product] Load Products Success',
+  props<{ products: ProductItem[] }>()
 );
-export const loadProductItemsFailure = createAction(
-  ' Load Items Failure',
-  props<{ error: any }>()
+export const loadProductsFailure = createAction(
+  '[Product] Load Products Failure',
+  props<{ error: string }>()
 );
-// Add product
-export const addProductItem = createAction(
-  ' Add Item',
-  props<{ item: ProductItem }>()
+
+// Load product by ID
+export const loadProductById = createAction(
+  '[Product] Load Product By Id',
+  props<{ id: number }>()
 );
-export const addProductItemSuccess = createAction(
-  '[Compliance] Add Item Success',
-  props<{ item: ProductItem }>()
+export const loadProductByIdSuccess = createAction(
+  '[Product] Load Product By Id Success',
+  props<{ product: ProductItem }>()
 );
-export const addProductItemFailure = createAction(
-  '[Compliance] Add Item Failure',
-  props<{ error: any }>()
+export const loadProductByIdFailure = createAction(
+  '[Product] Load Product By Id Failure',
+  props<{ error: number }>()
+);
+export const setCategory = createAction(
+  '[Product Page] Set Category',
+  props<{ category: string | null }>()
 );

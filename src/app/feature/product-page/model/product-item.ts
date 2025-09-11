@@ -10,8 +10,3 @@ export interface ProductItem {
     count: number;
   };
 }
-export interface ProductState {
-  items: ProductItem[];
-  loading: boolean;
-  error: any;
-}
