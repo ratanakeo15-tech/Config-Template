@@ -46,7 +46,7 @@ export class UserFormComponent implements OnInit {
     kind: new FormControl(''),
     color: new FormControl(''),
     message: new FormControl(''),
-    keywords: new FormControl<string[]>([]),
+    // keywords: new FormControl<string[]>([]),
   });
   animals = new FormGroup({
     cat: new FormControl(false),
@@ -77,7 +77,7 @@ export class UserFormComponent implements OnInit {
     this.formdataValue.kind.set(this.profileForm.value.kind || '');
     this.formdataValue.color.set(this.profileForm.value.color || '');
     this.formdataValue.message.set(this.profileForm.value.message || '');
-     this.formdataValue.fav=this.profileForm.value.keywords || [];
+    //  this.formdataValue.fav=this.profileForm.value.keywords || [];
 
     const value = this.animals.value as {
       [key in 'cat' | 'dog' | 'bird']: boolean;
@@ -101,7 +101,7 @@ export class UserFormComponent implements OnInit {
       color: this.formdataValue.color(),
       message: this.formdataValue.message(),
       animal: this.formdataValue.animal(),
-      hobbies:  this.formdataValue.fav
+      // hobbies:  this.formdataValue.fav
     };
     // converts your object to a string
     localStorage.setItem('userFormData', JSON.stringify(formDataObj));

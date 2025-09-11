@@ -62,7 +62,7 @@ export class DisplayDataComponent {
     this.data.kind.set('');
     this.data.color.set('');
     this.data.message.set('');
-    this.data.hobbies.set([]);
+    // this.data.hobbies.set([]);
     localStorage.removeItem('userFormData');
   }
 
@@ -85,7 +85,7 @@ export class DisplayDataComponent {
     if (storedData.color) this.data.color.set(storedData.color);
     if (storedData.animal) this.data.animal.set(storedData.animal);
     if (storedData.message) this.data.message.set(storedData.message);
-    if (storedData.hobbies) this.data.hobbies.set(storedData.hobbies);
+    // if (storedData.hobbies) this.data.hobbies.set(storedData.hobbies);
     this.profileForm = this.fb.group({
       name: [this.data.name(), Validators.required],
       email: [this.data.email(), [Validators.required, Validators.email]],
@@ -96,7 +96,7 @@ export class DisplayDataComponent {
       color: [this.data.color()],
       animal: [this.data.animal()],
       message: [this.data.message()],
-       hobbies: [this.data.fav],
+      //  hobbies: [this.data.fav],
     });
     const existingData = JSON.parse(
       localStorage.getItem('userFormData') || '{}'
@@ -116,7 +116,7 @@ export class DisplayDataComponent {
         this.data.color.set(existingData.color);
         this.data.message.set(existingData.message);
         this.data.animal.set(existingData.animal);
-        this.data.hobbies=existingData.hobbies;
+        // this.data.hobbies=existingData.hobbies;
       } else {
         this.data;
       }
@@ -140,7 +140,7 @@ export class DisplayDataComponent {
     this.data.color.set(updatedData.color);
     this.data.animal.set(updatedData.animal);
     this.data.message.set(updatedData.message);
-    this.data.hobbies=updatedData.hobbies;
+    // this.data.hobbies=updatedData.hobbies;
 
     // Save to localStorage
     localStorage.setItem('userFormData', JSON.stringify(updatedData));

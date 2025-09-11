@@ -1,5 +1,5 @@
-export interface Products {
-  id: number;
+export interface ProductItem {
+    id: number;
   title: string;
   price: number;
   category: string;
@@ -9,4 +9,9 @@ export interface Products {
     rate: number;
     count: number;
   };
+}
+export interface ProductState {
+  items: ProductItem[];
+  loading: boolean;
+  error: any;
 }

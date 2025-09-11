@@ -7,6 +7,7 @@ import { environment } from "../../../environment/environment.prod";
 })
 export class EnvironmentService {
     private readonly env: Environment=environment as Environment;
+    
     get config(): Environment {
         return this.env;
     }
