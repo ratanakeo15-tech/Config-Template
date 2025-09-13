@@ -53,10 +53,15 @@ export const ProductReducer = createReducer(
     loading: false,
     error,
   })),
-   on(ProductActions.setCategory, (state, { category }) => ({
+   on(ProductActions.loadProductsByCategory, (state, { category }) => ({
     ...state,
     selectedCategory: category,
-  }))
+  })),
+  on(ProductActions.clearSelectedProduct, (state) => ({
+  ...state,
+  selectedProduct: null
+}))
+
 );
 
 

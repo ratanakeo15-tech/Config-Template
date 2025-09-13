@@ -1,6 +1,7 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { ProductItem } from '../model/product-item';
+export const clearSelectedProduct = createAction('[Product] Clear Selected Product');
 
 export const loadProducts = createAction('[Product] Load Products');
 export const loadProductsSuccess = createAction(
@@ -25,7 +26,17 @@ export const loadProductByIdFailure = createAction(
   '[Product] Load Product By Id Failure',
   props<{ error: number }>()
 );
-export const setCategory = createAction(
-  '[Product Page] Set Category',
-  props<{ category: string | null }>()
+
+export const loadProductsByCategory = createAction(
+  '[Product Page] Load Products By Category',
+  props<{ category: string }>()
+);
+
+export const loadProductsByCategorySuccess = createAction(
+  '[Product API] Load Products By Category Success',
+  props<{ products: ProductItem[] }>()
+);
+export const loadProductsByCategoryFailure = createAction(
+  '[Product] Load Product By Id Failure',
+  props<{ error: number }>()
 );

@@ -1,0 +1,43 @@
+<div class="mt-[50px]">
+  <h2 class="text-[50px] text-center font-bold">Products Page</h2>
+  <div class="w-[80%] m-auto mt-[50px]">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Select Category</mat-label>
+            <mat-select (valueChange)="onSelect($event.value)" >
+               
+            <mat-option>All Product</mat-option>
+            <!-- @for( p of relatedProducts$ | async;track p.id){ -->
+              @for( p of relatedProducts ;track p){
+                     <mat-option [value]="p.id" >
+                        {{p.category}}
+                        </mat-option>
+             
+         
+                }
+           
+            <!-- } -->
+            </mat-select>
+        </mat-form-field>
+  </div>
+  
+  <div class="grid grid-cols-3 gap-4 w-[80%] m-auto mt-[50px]">
+    @for (product of products; track $index) {
+    <!-- <div >
+  <h3>{{ product.title }}</h3>
+  <button (click)="onSelect(product.id)">View Details</button>
+</div> -->
+    <mat-card class="cursor-pointer hover:shadow-lg">
+      <mat-card-header>
+        <mat-card-title>{{ product.title }}</mat-card-title>
+        <mat-card-subtitle>${{ product.price }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ product.description }}</p>
+      </mat-card-content>
+      <button (click)="onSelect(product.id)">View Details</button>
+    </mat-card>
+
+    }
+  </div>
+</div>

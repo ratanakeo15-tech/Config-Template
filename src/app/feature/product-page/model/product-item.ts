@@ -9,4 +9,5 @@ export interface ProductItem {
     rate: number;
     count: number;
   };
+  
 }

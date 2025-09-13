@@ -7,7 +7,7 @@ export const selectProductState = createFeatureSelector<ProductState>('products'
 export const selectAllProducts = createSelector(
   selectProductState,
   // items from product state model 
-  (state) => state.products
+  (state) => state.products 
 );
 
 export const selectSelectedProduct = createSelector(

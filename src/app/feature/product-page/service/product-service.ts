@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { HttpResource } from '../../../shared/resource/http-resource';
 
 import { Observable } from 'rxjs';
@@ -28,5 +28,16 @@ export class ProductService {
     //  readonly filteredItems = computed(() => {
     //   let filtered = this.getProducts();
     //  });
-  
+//  private readonly filterDepartment = signal('');
+//   readonly filterItem=computed(()=>{
+//     let filtered = this.getProducts();
+//         if (this.filterDepartment()) {
+//       const branchToFilter = this.filterDepartment();
+//       filtered = filtered.filter((item) =>
+//         item.userInfo.id.includes(branchToFilter)
+//       );
+//     }
+//   });
+
+
 }

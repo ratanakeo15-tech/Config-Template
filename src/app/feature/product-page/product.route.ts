@@ -5,5 +5,9 @@ export default[
     {
         path:'',
         component:ProductPage
+    },
+     {
+        path:':id',
+        component:ProductPage
     }
 ]

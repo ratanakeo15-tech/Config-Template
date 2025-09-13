@@ -117,7 +117,7 @@ export const routes: Routes = [
     
   },
   //   {
-  //   path:'product/:id',
+  //   path:'products/:id',
   //   loadChildren:()=>import('./feature/product-page/product.route').then(m=>m.default)
   // },
    {

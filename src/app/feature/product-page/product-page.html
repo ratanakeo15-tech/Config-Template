@@ -1,92 +1,72 @@
-<!-- @if (loading$ | async; as loading) {
-  @if (loading) {
-    <div>Loading...</div>
-  }
-} -->
-  
+<!-- <div class="p-4">
+  <mat-form-field appearance="outline" class="w-64 mb-4">
+    <mat-label>Select Category</mat-label>
+    <mat-select (selectionChange)="onCategoryChange($event.value)">
+      <mat-option>All Product</mat-option>
+      @for( p of relatedProducts$ | async;track p.id){
+      <mat-option [value]="p.id">
+        {{ p.category }}
+      </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
 
+  @if(loading$ | async){
+  <div class="flex justify-center my-4">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+  } @if(selectedProduct$ | async; as product){
 
-@if (products$ | async; as products) {
-    <div class="mt-[50px] w-[80%] m-auto grid grid-cols-2 gap-5">
-  
-<mat-form-field appearance="outline" class="w-full">
-   <mat-label>Category</mat-label>
-  <mat-select (selectionChange)="filterByCategory($event.value)">
-    
-    @for (product of products; track product?.id){
-      <mat-option value="Electronics">{{product.category}}</mat-option>
+  <h1 class="text-[30px]">
+    <button (click)="backClick()" class="underline text-blue-700">/Back</button>
+  </h1>
+  <mat-card class="mb-6 mt-[50px]">
+    <mat-card-header>
+      <mat-card-title>{{ product.title }}</mat-card-title>
+      <mat-card-subtitle>Category: {{ product.category }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ product.description }}</p>
+      <p><strong>Price:</strong> ${{ product.price }}</p>
+    </mat-card-content>
+  </mat-card>
+  } @else {
+
+  <h3 class="mb-2">Related Products</h3>
+  <div class="grid grid-cols-3 gap-4">
+    @for( p of relatedProducts$ | async;track p.id){
+    <mat-card
+      (click)="viewProduct(p.id)"
+      class="cursor-pointer hover:shadow-lg"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ p.title }}</mat-card-title>
+        <mat-card-subtitle>${{ p.price }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ p.category }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ p.description }}</p>
+      </mat-card-content>
+    </mat-card>
     }
-  
-  </mat-select>
-</mat-form-field>
-<mat-form-field appearance="outline" class="w-full">
-  <mat-label>Assign To</mat-label>
-  <mat-select>
-    <mat-select-trigger>
-      <div class="flex items-center gap-2">
-        <mat-icon class="text-indigo-600 text-sm">people</mat-icon>
-      </div>
-    </mat-select-trigger>
-
-    <mat-option>
-      <div class="flex items-center gap-2">
-        <mat-icon class="text-indigo-600 text-sm">people</mat-icon>
-      </div>
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-  
   </div>
-<ul class="grid grid-cols-4 mt-[50px] m-auto gap-5 w-[80%]">
-  @for (product of products; track product?.id) {
-  <!-- <li>{{ product?.title }}</li> -->
-
-  <div
-    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-  >
-    <a href="#">
-      <img class="rounded-t-lg" src="{{ product.image }}" alt="" />
-    </a>
-    <div class="p-5">
-      <a href="#">
-        <h5
-          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-        >
-          {{ product.title }} - {{ product.category }}
-        </h5>
-      </a>
-      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        {{ product.description }}
-      </p>
-      <a
-        href="#"
-        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Read more
-        <svg
-          class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 10"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M1 5h12m0 0L9 1m4 4L9 9"
-          />
-        </svg>
-      </a>
-    </div>
-  </div>
-
   }
-</ul>
-} @if (selectedProduct$ | async; as product) {
-<div class="mt-4">
-  <h2>{{ product.title }}</h2>
-  <p>{{ product.description }}</p>
-</div>
+</div> -->
+
+@if((selectedProduct$ | async) === null){
+  <app-product-list
+  [products]="products$ | async"
+  [relatedProducts]="relatedProducts$ | async"
+  (selectProduct)="onSelectProduct($event)">
+</app-product-list>
 }
+@if(selectedProduct$ | async; as product){
+  <app-product-detail
+ 
+  [product]="product"
+  (back)="onBack()">
+</app-product-detail>
+}
+
+
+

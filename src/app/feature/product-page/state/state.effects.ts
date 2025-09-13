@@ -48,4 +48,21 @@ export class ProductEffects {
       )
     )
   );
+//   loadProductsByCategory$ = createEffect(() =>
+//   this.actions$.pipe(
+//     ofType(ProductActions.loadProductsByCategory),
+//     mergeMap(({ category }) =>
+//       this.productService.getProductById(category).pipe(
+//         map(products =>
+//           ProductActions.loadProductsByCategorySuccess({ products })
+//         ),
+//         catchError(error =>
+//           of(ProductActions.loadProductsByCategoryFailure({ error: error.message }))
+//         )
+//       )
+//     )
+//   )
+// );
+
+
 }

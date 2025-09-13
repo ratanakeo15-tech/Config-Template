@@ -6,9 +6,17 @@ import {
   inject,
   computed,
   model,
+  output,
+  EventEmitter,
+  Output
 } from '@angular/core';
 
-import { ActivatedRoute, RouterLink, NavigationEnd } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
 import * as ProductActions from './state/state.actions';
 import { filter, single } from 'rxjs/operators';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
@@ -22,53 +30,84 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { ProductList } from "./product-list/product-list";
+import { ProductDetail } from "./product-detail/product-detail";
 @Component({
   selector: 'app-product-page',
   imports: [
-      MatSelectModule ,
-      MatFormFieldModule,
+    // RouterLink,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatSelectModule,
+    MatFormFieldModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     FormsModule,
-    AsyncPipe
-  ],
+    AsyncPipe,
+    ProductList,
+    ProductDetail
+],
   templateUrl: './product-page.html',
   styleUrl: './product-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductPage implements OnInit {
-
   products$!: Observable<ProductItem[]>;
   selectedProduct$!: Observable<ProductItem | null>;
-  loading$!: Observable<boolean>;
-    category$!: Observable<string | null>;
+  // loading$!: Observable<boolean>;
+  // category$!: Observable<string | null>;
+  relatedProducts$!: Observable<ProductItem[]>;
+    // @Output() backClickbtn = new EventEmitter<void>();
 
-
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.products$ = this.store.select(ProductSelectors.selectAllProducts);
+    // this.category$ = this.store.select(ProductSelectors.selectSelectedCategory);
+    this.relatedProducts$ = this.store.select(
+      ProductSelectors.selectAllProducts
+    );
+    this.selectedProduct$ = this.store.select(
+      ProductSelectors.selectSelectedProduct
+    );
 
-    
+    // Debug: log all products
+    // this.products$.subscribe(products => {
+    //   console.log('🟢 All products:', products);
+    // });
+    // this.route.paramMap.subscribe((params) => {
+    //   const id = params.get('id');
+    //   console.log('Route id:', id);
+    //   if (id) {
+        // 👉 Load a single product
+        // this.store.dispatch(ProductActions.loadProductById({ id: +id }));
+      // } else {
+      //   // 👉 Load all products
 
-    this.products$ = this.store.select(ProductSelectors.selectAllProducts)
-        this.category$ = this.store.select(ProductSelectors.selectSelectedCategory);
-    // // Load all products when page loads
-    this.store.dispatch(ProductActions.loadProducts());
-
-    // this.selectedProduct$ = this.store.select(ProductSelectors.selectSelectedProduct);
-    // this.loading$ = this.store.select(ProductSelectors.selectProductLoading);
-
-    
-
-    // // Example: Load single product by id
-    // this.store.dispatch(ProductActions.loadProductById({ id: 1 }));
-
-    // console.log('Store is:', this.store);
+        this.store.dispatch(ProductActions.loadProducts());
+      // }
+    // });
   }
-   filterByCategory(category: string) {
-    this.store.dispatch(ProductActions.setCategory({ category }));
+  viewProduct(id: number) {
+    this.store.dispatch(ProductActions.loadProductById({ id }));
+    this.router.navigate([`/products/${id}`]);
   }
-  
+ onSelectProduct(productId: number) {
+    this.store.dispatch(ProductActions.loadProductById({ id: productId }));
+  }
 
+  protected onBack() : void {
+      this.store.dispatch(ProductActions.clearSelectedProduct());
+    this.router.navigate([`/products`]);
+    //  this.router.navigate(['']);
+    // this.backClickbtn.emit();
+    //  console.log('jcbj');
+  }
 }
